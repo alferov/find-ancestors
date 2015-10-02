@@ -9,31 +9,29 @@ var current;
 describe('ancestors', function() {
   describe('with valid arguments', function() {
 
-    before(function() {
-      current = ancestors({ data: initial });
+    it('should return a matched object from plain arrays', function() {
+      var predicate = function(item) {
+        return item.id === 4;
+      };
+
+      var custom = [{ id: 1}, { id: 4 }];
+      current = ancestors({ data: custom, predicate: predicate});
+
+      expect(current).to.be.deep.equal({ id: 4 });
     });
 
-    it('should return an array', function() {
-      expect(current).to.be.an('array');
-    });
-
-    it('should return an expected value', function() {
-      expect(current).to.be.deep.equal(expected);
-    });
   });
 
   describe('with invalid arguments', function() {
-    it('should return an empty array if the empty array passed', function() {
-      expect(ancestors({ data: [] })).to.be.deep.equal([]);
-    });
 
     it('should throw an error if wrong arguments passed', function() {
       expect(ancestors.bind(null, { data: 'string' }))
-        .to.throw(/invalid argument/);
+        .to.throw(TypeError);
 
       expect(ancestors.bind(null, { data: {} }))
-        .to.throw(/invalid argument/);
+        .to.throw(TypeError);
     });
+
 
   });
 });

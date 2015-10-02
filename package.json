@@ -28,5 +28,10 @@
   "engines": {
     "node": ">=0.10.0"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "isarray": "0.0.1",
+    "isobject": "^2.0.0",
+    "shallow-object-extend": "0.0.1"
+  }
 }
