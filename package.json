@@ -4,7 +4,8 @@
   "description": "Get all parent elements of a nested node",
   "main": "index.js",
   "scripts": {
-    "test": "mocha"
+    "test": "mocha",
+    "tdd": "npm test -- --watch"
   },
   "keywords": [
     "array",
@@ -15,11 +16,8 @@
     "parents"
   ],
   "devDependencies": {
-    "babel-core": "^5.8.24",
     "chai": "^3.2.0",
     "eslint": "^1.4.1",
-    "gulp": "^3.9.0",
-    "gulp-mocha": "^2.1.3",
     "mocha": "^2.3.0"
   },
   "author": {
