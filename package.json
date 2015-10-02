@@ -1,6 +1,6 @@
 {
   "name": "parents-of-nested",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Get all parent elements of a nested node",
   "main": "index.js",
   "scripts": {
