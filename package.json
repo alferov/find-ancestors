@@ -1,7 +1,7 @@
 {
-  "name": "parents-of-nested",
+  "name": "ancestors",
   "version": "0.0.2",
-  "description": "Get all parent elements of a nested node",
+  "description": "Get all ancestors elements of a nested node",
   "main": "index.js",
   "scripts": {
     "test": "mocha",
@@ -13,7 +13,8 @@
     "nested",
     "elements",
     "tree",
-    "parents"
+    "parents",
+    "ancestors"
   ],
   "devDependencies": {
     "chai": "^3.2.0",

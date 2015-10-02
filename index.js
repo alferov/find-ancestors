@@ -1,13 +1,13 @@
 'use strict';
 
 /**
- * parentsOfNested
+ * ancestors
  *
- * @name parentsOfNested
+ * @name ancestors
  * @function
  * @return
  */
 
-module.exports = function parentsOfNested() {
+module.exports = function ancestors() {
 
 };

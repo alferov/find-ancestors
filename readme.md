@@ -1,11 +1,11 @@
-# parents-of-nested
+# ancestors
 
 > Get all parent elements of a nested node
 
 ## Install
 
 ```
-$ npm install --save parents-of-nested
+$ npm install --save ancestors
 ```
 
 ## Usage
@@ -14,7 +14,7 @@ $ npm install --save parents-of-nested
 
 ## API
 
-### `parentsOfNested(options)`
+### `ancestors(options)`
 Get all parent elements of a nested node
 
 #### Params
