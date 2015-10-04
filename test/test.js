@@ -9,17 +9,25 @@ var current;
 describe('ancestors', function() {
   describe('with valid arguments', function() {
 
-    it('should return a matched object from plain arrays', function() {
+    it('should return a matched object from plain arrays & generate uniques meta IDs', function() {
       var predicate = function(item) {
         return item.id === 4;
       };
 
-      var custom = [{ id: 1}, { id: 4 }];
+      var custom = [{ id: 1}, { id: 4}];
       current = ancestors({ data: custom, predicate: predicate});
 
-      expect(current).to.be.deep.equal({ id: 4 });
+      expect(current).to.be.deep.equal({ id: 4, __id: 2 });
     });
 
+    it('should be able to find nested objects & create links to parent', function() {
+      var predicate = function(item) {
+        return item.id === 2;
+      };
+      current = ancestors({ data: initial, predicate: predicate});
+
+      expect(current).to.be.deep.equal({ id: 2, __id: 2, __parent: 1, children: [{ id: 3 }] });
+    });
   });
 
   describe('with invalid arguments', function() {

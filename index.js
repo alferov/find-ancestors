@@ -4,26 +4,47 @@ var extend = require('shallow-object-extend');
 var isArray = require('isarray');
 var isObject = require('isobject');
 
-var find = function(object, childrenProperty, predicate) {
+var generateUniqueNumber = function() {
+  var unique = 0;
+
+  return {
+    next: function() {
+      return ++unique;
+    },
+    empty: function() {
+      unique = 0;
+    }
+  };
+};
+
+var generator = generateUniqueNumber();
+
+var traverse = function(object, childrenProperty, predicate, parent) {
   var result = null;
 
   if (isArray(object)) {
     for (var i = 0; i < object.length; i++) {
-      result = find(object[i], childrenProperty, predicate);
+      result = traverse(object[i], childrenProperty, predicate, parent);
 
       if (result) {
-        break;
+        break ;
       }
     }
   }
 
-  if(isObject(object)) {
+  if (isObject(object)) {
+    object.__id = generator.next();
+
+    if (parent) {
+      object.__parent = parent;
+    }
+
     if (predicate(object)) {
       return object;
     }
 
     if (object[childrenProperty]) {
-      result = find(object[childrenProperty], childrenProperty, predicate);
+      result = traverse(object[childrenProperty], childrenProperty, predicate, object.__id);
     }
   }
 
@@ -39,12 +60,15 @@ var find = function(object, childrenProperty, predicate) {
 
 module.exports = function ancestors(options) {
   options = extend({
-    childrenProperty: 'children'
+    childrenProperty: 'children',
+    identifier: 'id'
   }, options);
+
+  generator.empty();
 
   if (!isArray(options.data)) {
     throw new TypeError('Expected array');
   }
 
-  return find(options.data, options.childrenProperty, options.predicate);
+  return traverse(options.data, options.childrenProperty, options.predicate);
 };
