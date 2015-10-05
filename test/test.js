@@ -26,7 +26,7 @@ describe('ancestors', function() {
       };
       current = ancestors({ data: initial, predicate: predicate});
 
-      expect(current).to.be.deep.equal({ id: 2, __id: 2, __parent: 1, children: [{ id: 3 }] });
+      expect(current).to.be.deep.equal({ id: 2, __id: 2, __parent: 1 });
     });
   });
 

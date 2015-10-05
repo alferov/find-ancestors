@@ -69,14 +69,36 @@ var traverse = function(options) {
   return result;
 };
 
-var modifier = function(object, parent) {
-  object.__id = generator.next();
+var findNode = function(options) {
+  var path = [];
 
-  if (parent) {
-    object.__parent = parent;
+  // Assign custom ids to each tree node to identify relationships between
+  // nodes later
+  var modifier = function(object, parent) {
+    object.__id = generator.next();
+
+    if (parent) {
+      object.__parent = parent;
+    }
+
+    path.push(object);
+
+    return object;
+  };
+
+  options = extend({
+    // Callback that takes every node and its parent (if node is nested)
+    // as arguments. It should return a node.
+    modifier: modifier
+  }, options);
+
+  var result = traverse(options);
+
+  if (result) {
+    result
   }
 
-  return object;
+  return result;
 };
 
 /**
@@ -90,10 +112,7 @@ var modifier = function(object, parent) {
 module.exports = function ancestors(options) {
   options = extend({
     childrenProperty: 'children',
-    identifier: 'id',
-    // Callback that takes every node and its parent (if node is nested)
-    // as arguments. It should return a node.
-    modifier: modifier
+    identifier: 'id'
   }, options);
 
   if (!isArray(options.data)) {
@@ -102,10 +121,9 @@ module.exports = function ancestors(options) {
 
   generator.empty();
 
-  return traverse({
+  return findNode({
     object:options.data,
     childrenProperty: options.childrenProperty,
-    predicate: options.predicate,
-    modifier: options.modifier
+    predicate: options.predicate
   });
 };
