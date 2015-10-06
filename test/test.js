@@ -17,16 +17,18 @@ describe('ancestors', function() {
       var custom = [{ id: 1}, { id: 4}];
       current = ancestors({ data: custom, predicate: predicate});
 
-      expect(current).to.be.deep.equal({ id: 4, __id: 2 });
+      expect(current).to.be.deep.equal([{ id: 4, __id: 2 }]);
     });
 
     it('should be able to find nested objects & create links to parent', function() {
+
       var predicate = function(item) {
-        return item.id === 2;
+        return item.id === 4;
       };
+
       current = ancestors({ data: initial, predicate: predicate});
 
-      expect(current).to.be.deep.equal({ id: 2, __id: 2, __parent: 1 });
+      expect(current).to.be.deep.equal(expected);
     });
   });
 

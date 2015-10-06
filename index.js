@@ -94,11 +94,41 @@ var findNode = function(options) {
 
   var result = traverse(options);
 
-  if (result) {
-    result
-  }
+  return { result: result, path: path };
+};
 
-  return result;
+var findParentNodes = function(object, node, childrenProperty) {
+  var nodes = [];
+
+  var findParentNode = function(object, node, childrenProperty) {
+    var result = null;
+    var predicate = function(item) {
+      return item.__id === node.__parent;
+    }
+
+    if (node) {
+      nodes.push(node);
+    }
+
+    if (node.__parent) {
+
+      result = traverse({
+        object: object,
+        childrenProperty: childrenProperty,
+        predicate: predicate
+      });
+
+      if (result) {
+        findParentNode(object, result, childrenProperty);
+      }
+    }
+
+    return result;
+  };
+
+  findParentNode(object, node, childrenProperty);
+
+  return nodes;
 };
 
 /**
@@ -121,9 +151,11 @@ module.exports = function ancestors(options) {
 
   generator.empty();
 
-  return findNode({
-    object:options.data,
+  var searchResults = findNode({
+    object: options.data,
     childrenProperty: options.childrenProperty,
     predicate: options.predicate
   });
+
+  return findParentNodes(searchResults.path, searchResults.result, options.childrenProperty);
 };
