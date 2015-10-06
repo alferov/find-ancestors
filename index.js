@@ -133,16 +133,24 @@ var findParentNodes = function(object, node, childrenProperty) {
 
 /**
  * ancestors
+ * Recursively find and return a nested node and all its ancestors (parents)
+ * from a tree
  *
  * @name ancestors
  * @function
- * @return
+ * @param {Object} options An object containing the following fields:
+ *
+ *  - `data` (Array): An array of data
+ *  - `childrenProperty` (String): A name of a property that contains nested
+ * nodes. Default: 'children'
+ *  - `predicate` (Function): Filter criteria
+ *
+ * @return {Array} Matched node and its ancestors
  */
 
 module.exports = function ancestors(options) {
   options = extend({
-    childrenProperty: 'children',
-    identifier: 'id'
+    childrenProperty: 'children'
   }, options);
 
   if (!isArray(options.data)) {
