@@ -1,5 +1,5 @@
 {
-  "name": "ancestors",
+  "name": "ancestors.js",
   "version": "0.0.2",
   "description": "Get all ancestors elements of a nested node",
   "main": "index.js",

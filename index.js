@@ -97,38 +97,28 @@ var findNode = function(options) {
   return { result: result, path: path };
 };
 
-var findParentNodes = function(object, node, childrenProperty) {
-  var nodes = [];
+var findParentNodes = function(nodes, node) {
+  var result = [];
 
-  var findParentNode = function(object, node, childrenProperty) {
-    var result = null;
-    var predicate = function(item) {
-      return item.__id === node.__parent;
-    }
+  if (node) {
+    result.push(node);
+  }
 
-    if (node) {
-      nodes.push(node);
-    }
-
-    if (node.__parent) {
-
-      result = traverse({
-        object: object,
-        childrenProperty: childrenProperty,
-        predicate: predicate
-      });
-
-      if (result) {
-        findParentNode(object, result, childrenProperty);
-      }
-    }
-
+  if (!nodes) {
     return result;
-  };
+  }
 
-  findParentNode(object, node, childrenProperty);
+  while (node.__parent) {
+    nodes.forEach(function(item) {
+      if (item.__id !== node.__parent) {
+        return ;
+      }
+      node = item;
+      result.push(node);
+    });
+  }
 
-  return nodes;
+  return result;
 };
 
 /**
@@ -165,5 +155,5 @@ module.exports = function ancestors(options) {
     predicate: options.predicate
   });
 
-  return findParentNodes(searchResults.path, searchResults.result, options.childrenProperty);
+  return findParentNodes(searchResults.path, searchResults.result);
 };
