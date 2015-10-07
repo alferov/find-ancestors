@@ -81,6 +81,10 @@ var findNode = function(options) {
       object.__parent = parent;
     }
 
+    // Every node during tree traversal is being added to an array
+    // It helps to represent tree structure as a plain list (since each node
+    // has own unique id and pointer to a parent node) and find parent using
+    // iteration instead of recursion
     path.push(object);
 
     return object;
@@ -97,6 +101,7 @@ var findNode = function(options) {
   return { result: result, path: path };
 };
 
+// Take
 var findParentNodes = function(nodes, node) {
   var result = [];
 
@@ -109,13 +114,20 @@ var findParentNodes = function(nodes, node) {
   }
 
   while (node.__parent) {
+    var matchedNode;
+
     nodes.forEach(function(item) {
       if (item.__id !== node.__parent) {
         return ;
       }
-      node = item;
+
+      node = matchedNode = item;
       result.push(node);
     });
+
+    if (!matchedNode) {
+      break ;
+    }
   }
 
   return result;
