@@ -30,6 +30,7 @@
   },
   "license": "MIT",
   "dependencies": {
+    "is-function": "^1.0.1",
     "isarray": "0.0.1",
     "isobject": "^2.0.0",
     "shallow-object-extend": "0.0.1"

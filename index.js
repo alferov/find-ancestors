@@ -2,6 +2,7 @@
 var extend = require('shallow-object-extend');
 var isArray = require('isarray');
 var isObject = require('isobject');
+var isFunction = require('is-function');
 
 // Generate unique ID
 var generateUniqueNumber = function() {
@@ -23,7 +24,6 @@ var generator = generateUniqueNumber();
 var traverse = function(options) {
   var result = null;
   var object = options.object;
-  var childrenProperty = options.childrenProperty;
   var predicate = options.predicate;
   var modifier = options.modifier;
   var parent = options.parent;
@@ -32,7 +32,6 @@ var traverse = function(options) {
     for (var i = 0; i < object.length; i++) {
       result = traverse({
         object: object[i],
-        childrenProperty: childrenProperty,
         predicate: predicate,
         modifier: modifier,
         parent: parent
@@ -54,16 +53,24 @@ var traverse = function(options) {
       return object;
     }
 
-    if (object[childrenProperty]) {
-      result = traverse({
-        object: object[childrenProperty],
-        childrenProperty: childrenProperty,
-        predicate: predicate,
-        modifier: modifier,
-        parent: object.__id
-      });
+    for (var key in object) {
+      if (object.hasOwnProperty(key)) {
+        var value = object[key];
 
+        if (!isArray(value)) {
+          continue ;
+        }
+
+        result = traverse({
+          object: value,
+          predicate: predicate,
+          modifier: modifier,
+          parent: object.__id
+        });
+
+      }
     }
+
   }
 
   return result;
@@ -145,27 +152,26 @@ var findParentNodes = function(nodes, node) {
  * @param {Object} options An object containing the following fields:
  *
  *  - `data` (Array): An array of data
- *  - `childrenProperty` (String): A name of a property that contains nested
- * nodes. Default: 'children'
  *  - `predicate` (Function): Filter criteria
  *
  * @return {Array} Matched node and its ancestors
  */
 
 module.exports = function ancestors(options) {
-  options = extend({
-    childrenProperty: 'children'
-  }, options);
+  options = extend({}, options);
 
   if (!isArray(options.data)) {
-    throw new TypeError('Expected array');
+    throw new TypeError('Data should be an array');
+  }
+
+  if (!isFunction(options.predicate)) {
+    throw new TypeError('Predicate should be a function');
   }
 
   generator.empty();
 
   var searchResults = findNode({
     object: options.data,
-    childrenProperty: options.childrenProperty,
     predicate: options.predicate
   });
 

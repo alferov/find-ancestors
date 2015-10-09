@@ -39,7 +39,10 @@ describe('ancestors', function() {
         .to.throw(TypeError);
 
       expect(ancestors.bind(null, { data: {} }))
-        .to.throw(TypeError);
+        .to.throw(/should be an array/);
+
+      expect(ancestors.bind(null, { data: [] }))
+        .to.throw(/should be a function/);
     });
 
 
