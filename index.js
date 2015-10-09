@@ -101,7 +101,7 @@ var findNode = function(options) {
   return { result: result, path: path };
 };
 
-// Take
+// Get all parents nodes from a plain array
 var findParentNodes = function(nodes, node) {
   var result = [];
 
@@ -116,14 +116,16 @@ var findParentNodes = function(nodes, node) {
   while (node.__parent) {
     var matchedNode;
 
-    nodes.forEach(function(item) {
+    for (var i = 0; i < nodes.length; i++) {
+      var item = nodes[i];
+
       if (item.__id !== node.__parent) {
-        return ;
+        continue ;
       }
 
       node = matchedNode = item;
       result.push(node);
-    });
+    }
 
     if (!matchedNode) {
       break ;
