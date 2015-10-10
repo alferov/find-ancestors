@@ -16,6 +16,7 @@
     "parents",
     "ancestors"
   ],
+  "repository": "alferov/find-ancestors",
   "devDependencies": {
     "chai": "^3.2.0",
     "eslint": "^1.4.1",
