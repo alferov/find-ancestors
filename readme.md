@@ -24,7 +24,7 @@ var tree = [{
 }];
 
 var result = findAncestors({
-  object: tree,
+  data: tree,
   predicate: function(item) {
     return item.id === 3;
   }
