@@ -1,6 +1,6 @@
 {
   "name": "find-ancestors",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Get all ancestors elements of a nested node",
   "main": "index.js",
   "scripts": {
