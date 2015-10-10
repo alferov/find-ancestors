@@ -1,18 +1,18 @@
-# ancestors.js
+# find-ancestors
 
 > Recursively find and return a nested node and all its ancestors (parents)
-from a tree
+from a nested data structure (i.e. tree)
 
 ## Install
 
 ```
-$ npm install --save ancestors.js
+$ npm install --save find-ancestors
 ```
 
 ## Usage
 
 ```js
-var ancestors = require('ancestors.js');
+var findAncestors = require('find-ancestors');
 
 var tree = [{
   id: 1,
@@ -23,9 +23,8 @@ var tree = [{
   }]
 }];
 
-var result = ancestors({
+var result = findAncestors({
   object: tree,
-  childrenProperty: 'children',
   predicate: function(item) {
     return item.id === 3;
   }
@@ -35,14 +34,12 @@ var result = ancestors({
 
 ## API
 
-### `ancestors(options)`
-Recursively find and return a nested node and all its ancestors (parents) from a tree
+### `findAncestors(options)`
+Recursively find and return a nested node and all its ancestors (parents) from a nested data structure (i.e. tree)
 
 #### Params
 **Object** `options`: An object containing the following fields:
 - `data` (Array): An array of data
-- `childrenProperty` (String): A name of a property that contains nested nodes.
-Default: 'children'
 - `predicate` (Function): Filter criteria
 
 #### Return

@@ -143,11 +143,11 @@ var findParentNodes = function(nodes, node) {
 };
 
 /**
- * ancestors
+ * findAncestors
  * Recursively find and return a nested node and all its ancestors (parents)
- * from a tree
+ * from a nested data structure (i.e. tree)
  *
- * @name ancestors
+ * @name findAncestors
  * @function
  * @param {Object} options An object containing the following fields:
  *
@@ -157,7 +157,7 @@ var findParentNodes = function(nodes, node) {
  * @return {Array} Matched node and its ancestors
  */
 
-module.exports = function ancestors(options) {
+module.exports = function findAncestors(options) {
   options = extend({}, options);
 
   if (!isArray(options.data)) {
