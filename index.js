@@ -116,7 +116,7 @@ var findParentNodes = function(nodes, node) {
     result.push(node);
   }
 
-  if (!nodes) {
+  if (!nodes.length) {
     return result;
   }
 

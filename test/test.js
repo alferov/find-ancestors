@@ -5,14 +5,14 @@ var findAncestors = require('../index.js');
 var initial = require('./fixtures/initial.js');
 var expected = require('./fixtures/expected.js');
 var current;
+var predicate = function(item) {
+  return item.id === 4;
+};
 
 describe('find-ancestors', function() {
   describe('with valid arguments', function() {
 
     it('should return a matched object from plain arrays & generate uniques meta IDs', function() {
-      var predicate = function(item) {
-        return item.id === 4;
-      };
 
       var custom = [{ id: 1}, { id: 4}];
       current = findAncestors({ data: custom, predicate: predicate});
@@ -43,8 +43,9 @@ describe('find-ancestors', function() {
 
       expect(findAncestors.bind(null, { data: [] }))
         .to.throw(/should be a function/);
+
+      expect(findAncestors.bind(null, { data: [], predicate: predicate }))
+        .not.to.throw(TypeError);
     });
-
-
   });
 });
