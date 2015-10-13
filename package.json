@@ -1,7 +1,7 @@
 {
   "name": "find-ancestors",
-  "version": "1.0.2",
-  "description": "Get all ancestors elements of a nested node",
+  "version": "1.0.3",
+  "description": "Recursively find and return a nested node and all its ancestors (parents) from a nested data structure (i.e. tree)",
   "main": "index.js",
   "scripts": {
     "test": "mocha --reporter nyan",
