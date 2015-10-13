@@ -112,13 +112,11 @@ var findNode = function(options) {
 var findParentNodes = function(nodes, node) {
   var result = [];
 
-  if (node) {
-    result.push(node);
-  }
-
-  if (!nodes.length) {
+  if (!nodes.length || !node) {
     return result;
   }
+
+  result.push(node);
 
   while (node.__parent) {
     var matchedNode;
