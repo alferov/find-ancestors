@@ -1,6 +1,6 @@
 {
   "name": "find-ancestors",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Recursively find and return a nested node and all its ancestors (parents) from a nested data structure (i.e. tree)",
   "main": "index.js",
   "scripts": {
