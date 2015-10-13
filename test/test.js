@@ -18,6 +18,8 @@ describe('find-ancestors', function() {
       current = findAncestors({ data: custom, predicate: predicate});
 
       expect(current).to.be.deep.equal([{ id: 4, __id: 2 }]);
+      // Ensure that findAncestors doesn't modify passed object
+      expect(initial).to.be.deep.equal(initial);
     });
 
     it('should be able to find nested objects & create links to parent', function() {
