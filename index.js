@@ -135,10 +135,8 @@ var findParentNodes = function(nodes, node) {
  *
  * @name findAncestors
  * @function
- * @param {Object} options An object containing the following fields:
- *
- *  - `data` (Array): An array of data
- *  - `predicate` (Function): Filter criteria
+ * @param {Array} data An array of data
+ * @param {Function} predicate Filter criteria
  *
  * @return {Array} Matched node and its ancestors
  */
