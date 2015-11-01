@@ -31,9 +31,9 @@
   },
   "license": "MIT",
   "dependencies": {
+    "extend": "^3.0.0",
     "is-function": "^1.0.1",
     "isarray": "0.0.1",
-    "isobject": "^2.0.0",
-    "shallow-object-extend": "0.0.1"
+    "isobject": "^2.0.0"
   }
 }

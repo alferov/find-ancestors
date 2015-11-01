@@ -15,7 +15,7 @@ describe('find-ancestors', function() {
     it('should return a matched object from plain arrays & generate uniques meta IDs', function() {
 
       var custom = [{ id: 1}, { id: 4}];
-      current = findAncestors({ data: custom, predicate: predicate});
+      current = findAncestors(custom, predicate);
 
       expect(current).to.be.deep.equal([{ id: 4, __id: 2 }]);
       // Ensure that findAncestors doesn't modify passed object
@@ -28,7 +28,7 @@ describe('find-ancestors', function() {
         return item.id === 4;
       };
 
-      current = findAncestors({ data: initial, predicate: predicate});
+      current = findAncestors(initial, predicate);
 
       expect(current).to.be.deep.equal(expected);
     });
@@ -37,16 +37,16 @@ describe('find-ancestors', function() {
   describe('with invalid arguments', function() {
 
     it('should throw an error if wrong arguments passed', function() {
-      expect(findAncestors.bind(null, { data: 'string' }))
+      expect(findAncestors.bind(null, 'string' ))
         .to.throw(TypeError);
 
-      expect(findAncestors.bind(null, { data: {} }))
+      expect(findAncestors.bind(null, {}))
         .to.throw(/should be an array/);
 
-      expect(findAncestors.bind(null, { data: [] }))
+      expect(findAncestors.bind(null, []))
         .to.throw(/should be a function/);
 
-      expect(findAncestors.bind(null, { data: [], predicate: predicate }))
+      expect(findAncestors.bind(null, [], predicate))
         .not.to.throw(TypeError);
     });
   });

@@ -1,5 +1,5 @@
 'use strict';
-var extend = require('shallow-object-extend');
+var extend = require('extend');
 var isArray = require('isarray');
 var isObject = require('isobject');
 var isFunction = require('is-function');
@@ -21,25 +21,19 @@ var generateUniqueNumber = function() {
 var generator = generateUniqueNumber();
 
 // Recursive tree traversal
-var traverse = function(options) {
+var traverse = function(object, predicate, options) {
   var result = null;
-  var object = options.object;
-  var predicate = options.predicate;
   var modifier = options.modifier;
   var parent = options.parent;
 
   if (isArray(object)) {
     for (var i = 0; i < object.length; i++) {
-      result = traverse({
-        object: object[i],
-        predicate: predicate,
-        modifier: modifier,
-        parent: parent
-      });
+      result = traverse(object[i], predicate, { modifier: modifier, parent: parent });
 
       if (result) {
         break ;
       }
+
     }
   }
 
@@ -61,22 +55,16 @@ var traverse = function(options) {
           continue ;
         }
 
-        result = traverse({
-          object: value,
-          predicate: predicate,
-          modifier: modifier,
-          parent: object.__id
-        });
+        result = traverse(value, predicate, { modifier: modifier, parent: object.__id });
 
       }
     }
-
   }
 
   return result;
 };
 
-var findNode = function(options) {
+var findNode = function(data, predicate, options) {
   var path = [];
 
   // Assign custom ids to each tree node to identify relationships between
@@ -103,7 +91,7 @@ var findNode = function(options) {
     modifier: modifier
   }, options);
 
-  var result = traverse(options);
+  var result = traverse(data, predicate, options);
 
   return { result: result, path: path };
 };
@@ -155,23 +143,19 @@ var findParentNodes = function(nodes, node) {
  * @return {Array} Matched node and its ancestors
  */
 
-module.exports = function findAncestors(options) {
-  options = extend({}, options);
+module.exports = function findAncestors(data, predicate) {
 
-  if (!isArray(options.data)) {
+  if (!isArray(data)) {
     throw new TypeError('Data should be an array');
   }
 
-  if (!isFunction(options.predicate)) {
+  if (!isFunction(predicate)) {
     throw new TypeError('Predicate should be a function');
   }
 
   generator.empty();
 
-  var searchResults = findNode({
-    object: options.data,
-    predicate: options.predicate
-  });
+  var searchResults = findNode(data, predicate);
 
   return findParentNodes(searchResults.path, searchResults.result);
 };
