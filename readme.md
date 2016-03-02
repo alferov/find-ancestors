@@ -32,8 +32,8 @@ findAncestors(tree, function(item) {
 Recursively find and return a nested node and all its ancestors (parents) from a nested data structure (i.e. tree)
 
 #### Params
-**Array** `data`: An array of data
-**Function** `predicate`: Filter criteria
+- **Array** `data`: An array of data
+- **Function** `predicate`: A filter criteria
 
 #### Return
 - **Array**: Matched node and its ancestors
