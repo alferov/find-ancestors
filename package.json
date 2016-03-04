@@ -4,10 +4,9 @@
   "description": "Recursively find and return a nested node and all its ancestors (parents) from a nested data structure (i.e. tree)",
   "main": "index.js",
   "scripts": {
-    "release": "npm version ${BUMP:-\"patch\"} --no-git-tag-version && git add package.json && git commit -m \":octocat: Bump to $(cat package.json | json version)\" && git tag $(cat package.json | json version) && git push && git push --tags && npm publish",
+    "release": "npm version ${BUMP:-\"patch\"} --no-git-tag-version && git add package.json && git commit -m \":octocat: Bump to $(cat package.json | jq -r .version)\" && git tag $(cat package.json | jq -r .version) && git push && git push --tags && npm publish",
     "test": "mocha",
-    "tdd": "npm test -- --watch",
-    "release": "npm version ${BUMP:-\"patch\"} --no-git-tag-version && git add package.json && git commit -m \":octocat: Bump to $(cat package.json | jq -r .version)\" && git tag $(cat package.json | jq -r .version) && git push && git push --tags && npm publish"
+    "tdd": "npm test -- --watch"
   },
   "keywords": [
     "array",
@@ -34,9 +33,9 @@
   },
   "license": "MIT",
   "dependencies": {
-    "extend": "^3.0.0",
-    "is-function": "^1.0.1",
-    "isarray": "0.0.1",
-    "isobject": "^2.0.0"
+    "lodash.assign": "^4.0.6",
+    "lodash.isarray": "^4.0.0",
+    "lodash.isfunction": "^3.0.8",
+    "lodash.isplainobject": "^4.0.3"
   }
 }

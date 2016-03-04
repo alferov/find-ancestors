@@ -1,8 +1,8 @@
 'use strict';
-var extend = require('extend');
-var isArray = require('isarray');
-var isObject = require('isobject');
-var isFunction = require('is-function');
+var extend = require('lodash.assign');
+var isArray = require('lodash.isarray');
+var isObject = require('lodash.isplainobject');
+var isFunction = require('lodash.isfunction');
 
 // Generate unique ID
 var generateUniqueNumber = function() {
@@ -10,7 +10,7 @@ var generateUniqueNumber = function() {
 
   return {
     next: function() {
-      return ++unique;
+      return unique = unique + 1;
     },
     empty: function() {
       unique = 0;
