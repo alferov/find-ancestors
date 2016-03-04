@@ -144,11 +144,11 @@ var findParentNodes = function(nodes, node) {
 module.exports = function findAncestors(data, predicate) {
 
   if (!isArray(data)) {
-    throw new TypeError('Data should be an array');
+    throw new TypeError('Expected an array but got ' + typeof data);
   }
 
   if (!isFunction(predicate)) {
-    throw new TypeError('Predicate should be a function');
+    throw new TypeError('Expected a function but got ' + typeof predicate);
   }
 
   generator.empty();
